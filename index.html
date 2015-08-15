@@ -50,6 +50,9 @@
             $(tweet);
 
             $($body).append('<a href = # >' + '@' + tweet.user + '</a>' );
+            $('a').addClass("tweetsContainer");
+            $('a').attr({'user': tweet.user});
+
             $tweet;
             $tweet.text(tweet.message +  ".... tweeted on " + tweet.created_at); // added timestamp to message
 
@@ -58,11 +61,28 @@
            index -= 1;     
            }
 
-           $('a').click( function(event){
+
+           $('a').click( 'user', function(event){
                 event.preventDefault();
-                alert($(this).params);
+                var selectedUser = tweet['user'];
+                var selectedUserTweets = streams.users[selectedUser];
+               
+                length = selectedUserTweets.length;
+                var $body = $('main');
+                $body.html('');
+                var $tweet = $('<div></div>');
+
+                $($body).append('@' + selectedUser + "\'s Tweets");
+                
+                 for(var i = length-1; i >= 0; i--){
+                  $tweet;
+                  $tweet.text(selectedUserTweets[i].message +  ".... tweeted on " +selectedUserTweets[i].created_at);
+                  $tweet.appendTo($body);
+                 }
 
             });
+
+
 
 
           });
