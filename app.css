@@ -10,6 +10,13 @@ body {
 
 }
 
+.mainBody{
+	margin-top: 40px;
+	margin-left: 85px;
+	width: 950px;
+	padding:12px 20px;
+	border:1px solid navy;
+}
 
 button {
 	background-color:#44c767;

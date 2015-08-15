@@ -17,8 +17,9 @@
     </div>
   </nav>
 
-  <div class = "tweetsContainer">
-  </div>
+  <main class = "mainBody">
+  </main>
+</div>
 
   <script>
 
@@ -37,7 +38,7 @@
 
         //everybody's last tweets
         $('button').click(function(){
-          var $body = $('body');
+          var $body = $('main');
           $body.html('');
           var index = streams.home.length - 1;
           
@@ -48,7 +49,7 @@
             $tweet;
             $(tweet);
 
-            $($body).append('<a href = # >' + '@' + tweet.user + '</a>' )
+            $($body).append('<a href = # >' + '@' + tweet.user + '</a>' );
             $tweet;
             $tweet.text(tweet.message +  ".... tweeted on " + tweet.created_at); // added timestamp to message
 
@@ -59,7 +60,7 @@
 
            $('a').click( function(event){
                 event.preventDefault();
-                alert();
+                alert($(this).params);
 
             });
 
@@ -79,6 +80,6 @@
 
   <!-- Design your interface so that you want to look at and use the product you're making. **do last -->
   <!-- Allow the user to click on a username to see that user's timeline. **on click func or simple href -->
-</div>
+
   </body>
 </html>
