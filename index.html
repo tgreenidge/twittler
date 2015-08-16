@@ -12,10 +12,11 @@
   <nav> 
     <div id = "navHeader"> Twittler </div> 
       <hr>
-    <div>
-      <button>Refresh Tweets</button>
-    </div>
   </nav>
+
+  <div>
+      <button>Refresh Tweets</button>
+  </div>
 
   <main class = "mainBody">
   </main>
@@ -24,47 +25,37 @@
   <script>
 
       $(document).ready(function(){
-        
-        //  while(index >= 0){
-        //  for( user in streams.users){
-
-        //  $($body).append("<a href = #> "+ "@" + user + " </a>"); //usernames
-        //  //$($body).append("<h1> "+ user + " </h1"); //usernames
-
-        
-        //  }
-
-         
-
+        var $body = $('main');
+        $body.html('');
+        $($body).hide();
+      
         //everybody's last tweets
         $('button').click(function(){
           var $body = $('main');
           $body.html('');
+          $($body).show();
           var index = streams.home.length - 1;
           
           while(index >= 0){
 
-            var tweet = streams.home[index]; // gives the last tweet of all your users
+            var tweet = streams.home[index]; 
             var $tweet = $('<div></div>');
             $tweet;
-            $(tweet);
-
-            $($body).append('<a href = # >' + '@' + tweet.user + '</a>' );
-            $('a').addClass("tweetsContainer");
+            $($body).append('<a href = #>' + '@' + tweet.user + '</a>' );
+            $('a').addClass("test");
             $('a').attr({'user': tweet.user});
-
+            //$('a').data({this.user, tweet.user});
             $tweet;
-            $tweet.text(tweet.message +  ".... tweeted on " + tweet.created_at); // added timestamp to message
-
+            $($body).append(": " + tweet.message +  "  ........... " + tweet.created_at); // added timestamp to message
             $tweet.appendTo($body);
             $($body).append('<hr>');
            index -= 1;     
            }
 
-
-           $('a').click( 'user', function(event){
+           //selected user's tweets
+            $($body).on( 'click', "a.test", function(event){
                 event.preventDefault();
-                var selectedUser = tweet['user'];
+                var selectedUser = $(this).text().substring(1);
                 var selectedUserTweets = streams.users[selectedUser];
                
                 length = selectedUserTweets.length;
@@ -72,22 +63,16 @@
                 $body.html('');
                 var $tweet = $('<div></div>');
 
-                $($body).append('@' + selectedUser + "\'s Tweets");
+                $($body).append('<h2>@' + selectedUser + "\'s Tweets</h2>");
+                $($body).append('<hr>');
                 
-                 for(var i = length-1; i >= 0; i--){
-                  $tweet;
-                  $tweet.text(selectedUserTweets[i].message +  ".... tweeted on " +selectedUserTweets[i].created_at);
-                  $tweet.appendTo($body);
-                 }
+                for(var i = length-1; i >= 0; i--){
 
+                  $($body).append('<p>' + selectedUserTweets[i].message + "     ......... " +selectedUserTweets[i].created_at + '</p>'); 
+                  $('p').addClass("tweetsInfo");
+                }
             });
-
-
-
-
           });
-        
-
       });
 
     </script>
