@@ -15,7 +15,8 @@
   </nav>
 
   <div>
-      <button>Refresh Tweets</button>
+     <span> <button id = 'refreshButton'>Refresh Tweets</button></span>
+     <!--<span><button id = 'createTweetButton'>Create Tweet</button></span>--> 
   </div>
 
   <main class = "mainBody">
@@ -30,7 +31,7 @@
         $($body).hide();
       
         //everybody's last tweets
-        $('button').click(function(){
+        $('#refreshButton').click(function(){
           var $body = $('main');
           $body.html('');
           $($body).show();
@@ -46,7 +47,7 @@
             $('a').attr({'user': tweet.user});
             //$('a').data({this.user, tweet.user});
             $tweet;
-            $($body).append(": " + tweet.message +  "  ........... " + tweet.created_at); // added timestamp to message
+            $($body).append(": " + tweet.message +  "  ........... " + getTimeDifference(tweet.created_at)); // added timestamp to message
             $tweet.appendTo($body);
             $($body).append('<hr>');
            index -= 1;     
@@ -68,12 +69,42 @@
                 
                 for(var i = length-1; i >= 0; i--){
 
-                  $($body).append('<p>' + selectedUserTweets[i].message + "     ......... " +selectedUserTweets[i].created_at + '</p>'); 
+                  $($body).append('<p>' + selectedUserTweets[i].message + "     ......... " +getTimeDifference(selectedUserTweets[i].created_at) + '</p>'); 
                   $('p').addClass("tweetsInfo");
                 }
             });
           });
-      });
+
+          function getTimeDifference(timeToConvert){
+            var currentTime = (new Date);
+            var timeDifference = (currentTime - timeToConvert); 
+            if(timeDifference <= 1000){
+              return  "1 second ago";
+            }else if(timeDifference > 1000 && timeDifference < 60000){
+              return  Math.round(timeDifference/1000) + " seconds ago";
+            }else if(timeDifference >= 60000 && timeDifference < 3600000){
+              return  Math.round(timeDifference/60000) < 2 ? "1 minute ago" : Math.round(timeDifference/60000) + " minutes ago";
+            }else if(timeDifference >= 3600000 && timeDifference < 86400000){
+              return Math.round(timeDifference / 3600000) < 2 ? "1 hour ago" :  Math.round(timeDifference / 3600000)  + " hours ago";
+            }else if( timeDifference >= 86400000 && timeDifference < 31556926000){
+              return Math.round(timeDifference / 86400000) < 2 ? " 1 day ago": Math.round(timeDifference / 86400000) + " days ago";
+            }else if( timeDifference >= 31556926000 ){
+              return Math.round(timeDifference / 31556926000) < 2 ? " 1 year ago" : Math.round(timeDifference / 31556926000) + " years ago" ;
+            }
+
+          }
+
+
+         /* $('#createTweetButton').click(function(){
+          var $body = $('main');
+          $body.html('');
+          $($body).show();
+          var index = streams.home.length - 1;
+          //to do : allow user to create a new tweet
+         
+          
+          });// createTweet function */
+      });//doc ready func
 
     </script>
  
