@@ -11,7 +11,7 @@
   <div class = "container">
   <nav> 
     <div id = "navHeader"> Twittler </div> 
-      <hr>
+    <hr>
   </nav>
 
   <div>
@@ -38,7 +38,6 @@
           var index = streams.home.length - 1;
           
           while(index >= 0){
-
             var tweet = streams.home[index]; 
             var $tweet = $('<div></div>');
             $tweet;
@@ -50,72 +49,48 @@
             $($body).append(": " + tweet.message +  "  ........... " + getTimeDifference(tweet.created_at)); // added timestamp to message
             $tweet.appendTo($body);
             $($body).append('<hr>');
-           index -= 1;     
-           }
-
-           //selected user's tweets
-            $($body).on( 'click', "a.test", function(event){
-                event.preventDefault();
-                var selectedUser = $(this).text().substring(1);
-                var selectedUserTweets = streams.users[selectedUser];
-               
-                length = selectedUserTweets.length;
-                var $body = $('main');
-                $body.html('');
-                var $tweet = $('<div></div>');
-
-                $($body).append('<h2>@' + selectedUser + "\'s Tweets</h2>");
-                $($body).append('<hr>');
-                
-                for(var i = length-1; i >= 0; i--){
-
-                  $($body).append('<p>' + selectedUserTweets[i].message + "     ......... " +getTimeDifference(selectedUserTweets[i].created_at) + '</p>'); 
-                  $('p').addClass("tweetsInfo");
-                }
-            });
-          });
-
-          function getTimeDifference(timeToConvert){
-            var currentTime = (new Date);
-            var timeDifference = (currentTime - timeToConvert); 
-            if(timeDifference <= 1000){
-              return  "1 second ago";
-            }else if(timeDifference > 1000 && timeDifference < 60000){
-              return  Math.round(timeDifference/1000) + " seconds ago";
-            }else if(timeDifference >= 60000 && timeDifference < 3600000){
-              return  Math.round(timeDifference/60000) < 2 ? "1 minute ago" : Math.round(timeDifference/60000) + " minutes ago";
-            }else if(timeDifference >= 3600000 && timeDifference < 86400000){
-              return Math.round(timeDifference / 3600000) < 2 ? "1 hour ago" :  Math.round(timeDifference / 3600000)  + " hours ago";
-            }else if( timeDifference >= 86400000 && timeDifference < 31556926000){
-              return Math.round(timeDifference / 86400000) < 2 ? " 1 day ago": Math.round(timeDifference / 86400000) + " days ago";
-            }else if( timeDifference >= 31556926000 ){
-              return Math.round(timeDifference / 31556926000) < 2 ? " 1 year ago" : Math.round(timeDifference / 31556926000) + " years ago" ;
-            }
-
+            index -= 1;     
           }
 
+           //selected user's tweets
+          $($body).on( 'click', "a.test", function(event){
+            event.preventDefault();
+            var selectedUser = $(this).text().substring(1);
+            var selectedUserTweets = streams.users[selectedUser];
+           
+            length = selectedUserTweets.length;
+            var $body = $('main');
+            $body.html('');
+            var $tweet = $('<div></div>');
 
-         /* $('#createTweetButton').click(function(){
-          var $body = $('main');
-          $body.html('');
-          $($body).show();
-          var index = streams.home.length - 1;
-          //to do : allow user to create a new tweet
-         
-          
-          });// createTweet function */
+            $($body).append('<h2>@' + selectedUser + "\'s Tweets</h2>");
+            $($body).append('<hr>');
+            
+            for(var i = length-1; i >= 0; i--){
+              $($body).append('<p>' + selectedUserTweets[i].message + "     ......... " +getTimeDifference(selectedUserTweets[i].created_at) + '</p>'); 
+              $('p').addClass("tweetsInfo");
+            }
+          });
+        });
+
+        function getTimeDifference(timeToConvert){
+          var currentTime = (new Date);
+          var timeDifference = (currentTime - timeToConvert); 
+          if(timeDifference <= 1000){
+            return  "1 second ago";
+          }else if(timeDifference > 1000 && timeDifference < 60000){
+            return  Math.round(timeDifference/1000) + " seconds ago";
+          }else if(timeDifference >= 60000 && timeDifference < 3600000){
+            return  Math.round(timeDifference/60000) < 2 ? "1 minute ago" : Math.round(timeDifference/60000) + " minutes ago";
+          }else if(timeDifference >= 3600000 && timeDifference < 86400000){
+            return Math.round(timeDifference / 3600000) < 2 ? "1 hour ago" :  Math.round(timeDifference / 3600000)  + " hours ago";
+          }else if( timeDifference >= 86400000 && timeDifference < 31556926000){
+            return Math.round(timeDifference / 86400000) < 2 ? " 1 day ago": Math.round(timeDifference / 86400000) + " days ago";
+          }else if( timeDifference >= 31556926000 ){
+            return Math.round(timeDifference / 31556926000) < 2 ? " 1 year ago" : Math.roundtimeDifference / 31556926000) + " years ago" ;
+          }
+        }
       });//doc ready func
-
     </script>
- 
-  <!-- To Do -->
-  <!-- Show the user new tweets somehow. (You can show them automatically as they're created, or create a button that displays new tweets.)  ** since tweets in an array, index[length - 1] will give last tweet -->
-  <!-- Display the timestamps of when the tweets were created. 
-       -->
-      
-
-  <!-- Design your interface so that you want to look at and use the product you're making. **do last -->
-  <!-- Allow the user to click on a username to see that user's timeline. **on click func or simple href -->
-
   </body>
 </html>
